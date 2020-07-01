@@ -30,6 +30,21 @@ class BaseAPI {
     }
   }
 
+  static getImgOptions() {
+    let token = sessionStorage.getItem("t");
+    if (token) {
+      return {
+        headers: {
+          Authorization: "JWT " + token,
+          accept: "application/json",
+          "Content-Type": "multipart/form-data"
+        }
+      };
+    } else {
+      return {};
+    }
+  }
+
   static create(data) {
     return API.post(this.getBaseUrl(), data, this.getOptions());
   }
