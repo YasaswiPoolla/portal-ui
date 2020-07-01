@@ -65,7 +65,7 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, next) => {
+router.beforeEach((to, from, next) => {
   let authRequired = to.meta.requireLogin;
   let token = sessionStorage.getItem("t");
   if (authRequired) {
