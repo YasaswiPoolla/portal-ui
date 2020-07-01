@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -9,7 +10,7 @@ function loadView(view) {
 }
 const routes = [
   {
-    path: "/login/",
+    path: "/login",
     component: loadView("Login"),
     meta: {
       title: "Portal Login",
@@ -33,7 +34,7 @@ const routes = [
         component: loadView("Home"),
         meta: {
           title: "Worldline Portal",
-          requireLogin: false
+          requireLogin: true
         }
       },
       {
@@ -41,7 +42,7 @@ const routes = [
         component: loadView("Profile"),
         meta: {
           title: "My Profile",
-          requireLogin: false
+          requireLogin: true
         }
       },
       {
@@ -49,7 +50,7 @@ const routes = [
         component: loadView("MyTrips"),
         meta: {
           title: "My Trips",
-          requireLogin: false
+          requireLogin: true
         }
       }
     ]
@@ -64,13 +65,33 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, next) => {
   let authRequired = to.meta.requireLogin;
+  let token = sessionStorage.getItem("t");
   if (authRequired) {
-    //pass
+    if (token) {
+      store
+        .dispatch("user/inspectToken")
+        .then(() => {
+          document.title = to.meta.title;
+          next();
+        })
+        .catch(() => {
+          return next("/login");
+        });
+    } else {
+      return next("/login");
+    }
   } else {
     document.title = to.meta.title;
+
     next();
+  }
+});
+
+router.afterEach(to => {
+  if (to.path !== "/login") {
+    sessionStorage.setItem("lastPath", to.path);
   }
 });
 export default router;

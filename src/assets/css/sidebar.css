@@ -273,3 +273,6 @@
     -webkit-box-shadow: -3px 0px 0px 0px #000000 inset;
     box-shadow: -3px 0px 0px 0px #000000 inset;
 }
+.v-sidebar-menu.vsm_expanded {
+    max-width: 250px !important;
+}
