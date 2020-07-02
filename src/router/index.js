@@ -89,9 +89,10 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-router.afterEach(to => {
+router.afterEach((to, from) => {
   if (to.path !== "/login") {
     sessionStorage.setItem("lastPath", to.path);
   }
 });
+
 export default router;

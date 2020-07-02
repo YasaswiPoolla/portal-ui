@@ -7,6 +7,7 @@ import store from "./store";
 import BootstrapVue from "bootstrap-vue";
 import Vuelidate from "vuelidate";
 import VueSidebarMenu from "vue-sidebar-menu";
+import VueApexCharts from "vue-apexcharts";
 
 //css imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -20,6 +21,9 @@ import "&css/sidebar.css";
 Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
 Vue.use(VueSidebarMenu);
+Vue.use(VueApexCharts);
+
+Vue.component("apexchart", VueApexCharts);
 
 Vue.config.productionTip = false;
 
