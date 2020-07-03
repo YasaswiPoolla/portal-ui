@@ -1,17 +1,51 @@
 <template>
   <div>
-    <b-card>
-      <div v-if="user_data">
-        <b-avatar :src="url" size="6rem"></b-avatar>
-      </div>
-      <div v-else>
-        <b-avatar
-          :src="'http://localhost:8000' + currentUser.profile_image"
-          size="6rem"
-        ></b-avatar>
-      </div>
-      <input type="file" @change="onFileChanged" />
-      <button @click="onUpload">Upload!</button>
+    <b-card class="mb-2">
+      <b-container>
+        <b-row>
+          <b-col cols="3">
+            <div v-if="user_data">
+              <b-avatar :src="url" size="10rem"></b-avatar>
+            </div>
+            <div v-else>
+              <b-avatar
+                :src="'http://localhost:8000' + currentUser.profile_image"
+                size="10rem"
+              ></b-avatar>
+            </div>
+            <input
+              style="margin-top:10px;"
+              type="file"
+              @change="onFileChanged"
+            />
+          </b-col>
+          <b-col>
+            <h1>Details:</h1>
+            <label for="first_name">First Name:</label>
+            <b-form-input id="first_name" class="form-input"></b-form-input>
+            <label for="last_name">Last Name:</label>
+            <b-form-input id="last_name" class="form-input"></b-form-input>
+            <label for="email">Email:</label>
+            <b-form-input id="email" class="form-input"></b-form-input>
+            <label for="mobile">Mobile:</label>
+            <b-form-input id="mobile" class="form-input"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="3"></b-col>
+          <b-col>
+            <b-row style="margin-top:20px;">
+              <b-button
+                pill
+                variant="success"
+                style="margin-left:15px;width:150px;"
+                @click="onUpload"
+                >SAVE</b-button
+              >
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-container>
     </b-card>
   </div>
 </template>
@@ -60,3 +94,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.form-input {
+  width: 50%;
+}
+</style>
