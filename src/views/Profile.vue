@@ -82,8 +82,7 @@
                 pill
                 variant="success"
                 style="margin-left:15px;width:150px;"
-                @click="onUpload = !isEditing"
-                v-if="!isEditing"
+                @click="onUpload"
                 >UPDATE</b-button
               >
             </b-row>
