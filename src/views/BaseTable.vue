@@ -2,8 +2,16 @@
   <div>
     <h3>{{ title }}</h3>
     <br />
-    <b-row v-if="showFilters">
-      <b-col v-for="column in filterColumns" :key="column.id" sm="3">
+    <b-row
+      style="background-color:#324057;margin-left:1px;margin-right:1px;"
+      v-if="showFilters"
+    >
+      <b-col
+        v-for="column in filterColumns"
+        :key="column.id"
+        sm="3"
+        style="margin-top:10px;"
+      >
         <div v-if="column.type === 'date'">
           <flat-pickr
             v-model="selectedFilters[column.field]"
@@ -28,11 +36,12 @@
         </div>
         <br />
       </b-col>
-      <b-col sm="3" v-if="filterColumns && filterColumns.length > 0">
-        <b-button
-          variant="outline-primary"
-          class="form-control"
-          v-on:click="clearFilters"
+      <b-col
+        sm="3"
+        v-if="filterColumns && filterColumns.length > 0"
+        style="margin-top:10px;"
+      >
+        <b-button variant="light" class="form-control" v-on:click="clearFilters"
           >Clear Filters</b-button
         >
       </b-col>
@@ -44,6 +53,7 @@
       :columns="tableColumns"
       :rows="rows"
       :totalRows="count"
+      theme="nocturnal"
       :pagination-options="paginationOptions"
       styleClass="vgt-table condensed"
       @on-row-click="onRowClick"
