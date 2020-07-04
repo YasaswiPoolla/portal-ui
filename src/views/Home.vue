@@ -56,6 +56,7 @@ export default {
           toolbar: {
             show: false
           },
+          background: "lightgrey",
           height: 350,
           id: "vuechart-example",
           zoom: {
@@ -70,8 +71,8 @@ export default {
           show: true,
           curve: "smooth",
           lineCap: "butt",
-          colors: undefined,
-          width: 2,
+          colors: "#000",
+          width: 0.5,
           dashArray: 0
         },
         title: {
@@ -97,11 +98,22 @@ export default {
           categories: [],
           title: {
             text: "Week"
+          },
+          axisBorder: {
+            show: true,
+            color: "grey",
+            height: 1,
+            width: "100%"
           }
         },
         yaxis: {
           title: {
             text: "Trips"
+          },
+          axisBorder: {
+            show: true,
+            color: "grey",
+            height: 1
           }
         }
       },
