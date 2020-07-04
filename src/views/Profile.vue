@@ -95,6 +95,7 @@
 <script>
 import axios from "axios";
 import ImageUploadAPI from "&services/ImageUploadAPI";
+import UserDetailsAPI from "&services/UserDetailsAPI";
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
 export default {
@@ -136,31 +137,23 @@ export default {
     ...mapActions("user", ["logout", "getCurrentUser"]),
     onFileChanged(event) {
       this.selectedFile = event.target.files[0];
-    },
-    onUpload() {
-      let newUser = {
-        firs_name: this.user["firstName"],
-        last_name: this.user["lastName"],
-        email: this.user["email"],
-        mobile: this.user["mobile"]
-      };
-      console.log(newUser);
-      // this.user.firstName = this.$refs['first_name']
-      // console.log(this.user.firstName)
-      // this.user.lastName = this.$refs['last_name'].value;
-      // this.user.lastName = this.$refs['last_name'].value;
-      // this.isEditing = !this.isEditing;
-      // console.log(this.user.firstName)
-      // console.log(this.user.firstName)
-      // console.log(this.user.firstName)
-
-      // upload file, get it from this.selectedFile
       const formData = new FormData();
-      formData.append("datafile", this.selectedFile, this.selectedFile.name);
+      formData.append("datafile", this.selectedFile);
       let component = this;
       ImageUploadAPI.getProfileImage(formData).then(response => {
         component.user_data = response.data;
         component.url = "http://localhost:8000" + response.data.profile_image;
+      });
+    },
+    onUpload() {
+      const formData = new FormData();
+      formData.append("first_name", this.user["firstName"]);
+      formData.append("last_name", this.user["lastName"]);
+      formData.append("email", this.user["email"]);
+      formData.append("mobile", this.user["mobile"]);
+      let component = this;
+      UserDetailsAPI.getUserDetails(formData).then(response => {
+        alert("successfully updated");
       });
     },
     getCurrentUserDetails() {
