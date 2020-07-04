@@ -19,19 +19,21 @@
         :img-src="item.src"
       ></b-carousel-slide>
     </b-carousel>
-    <b-card style="max-width: 80%; margin:auto;margin-top:40px;">
-      <div>
+    <b-card style="margin-top:40px;padding:10px;">
+      <div v-if="show_week_chart">
         <apexchart
           height="300"
           type="line"
-          :options="chartOptions"
-          :series="series"
+          :options="trip_chartOptions"
+          :series="trip_series"
         ></apexchart>
       </div>
     </b-card>
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+import HomePageGraphsAPI from "&services/HomePageGraphsAPI";
 export default {
   data() {
     return {
@@ -48,54 +50,82 @@ export default {
       ],
       slide: 0,
       sliding: null,
-      series: [
-        {
-          name: "Desktops",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 54, 35, 45]
-        }
-      ],
-      chartOptions: {
+      show_week_chart: false,
+      trip_chartOptions: {
         chart: {
-          height: 150,
-          type: "line",
+          toolbar: {
+            show: false
+          },
+          height: 350,
+          id: "vuechart-example",
           zoom: {
             enabled: false
           }
         },
+        labels: [],
         dataLabels: {
           enabled: false
         },
         stroke: {
-          curve: "straight"
+          show: true,
+          curve: "smooth",
+          lineCap: "butt",
+          colors: undefined,
+          width: 2,
+          dashArray: 0
         },
         title: {
-          text: "Product Trends by Month",
-          align: "left"
+          text: "Trips by Week",
+          align: "left",
+          margin: 10,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#263238"
+          }
         },
         grid: {
           row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+            colors: ["transparent"], // takes an array which will be repeated on columns
             opacity: 0.5
           }
         },
         xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ]
+          categories: [],
+          title: {
+            text: "Week"
+          }
+        },
+        yaxis: {
+          title: {
+            text: "Trips"
+          }
         }
-      }
+      },
+      trip_series: [
+        {
+          name: "Trips",
+          // data: [2, 4, 3, 6]
+          data: []
+        }
+      ]
     };
+  },
+  mounted() {
+    if (this.currentUser != null) {
+      this.getWeekTripsCount();
+    }
+  },
+  computed: {
+    ...mapState("user", ["currentUser"])
+  },
+  watch: {
+    currentUser: function(val) {
+      this.getWeekTripsCount();
+    }
   },
   methods: {
     onSlideStart(slide) {
@@ -103,6 +133,27 @@ export default {
     },
     onSlideEnd(slide) {
       this.sliding = false;
+    },
+    getWeekTripsCount() {
+      let component = this;
+      // let loader = this.$loading.show(FULL_PAGE_LOADER_CONFIG);
+      HomePageGraphsAPI.getTripsCountByWeek()
+        .then(response => {
+          // loader.hide();
+          console.log(response.data);
+          let trip_series = component.trip_series;
+          let trip_chartOptions = component.trip_chartOptions;
+          for (let key in response.data) {
+            trip_series[0].data.push(response.data[key]);
+            trip_chartOptions.labels.push(key);
+          }
+          component.trip_series = trip_series;
+          component.trip_chartOptions = trip_chartOptions;
+          component.show_week_chart = true;
+        })
+        .catch(() => {
+          // loader.hide();
+        });
     }
   }
 };
