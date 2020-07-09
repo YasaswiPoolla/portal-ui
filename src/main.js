@@ -11,6 +11,7 @@ import VueApexCharts from "vue-apexcharts";
 import VueFlatPickr from "vue-flatpickr-component";
 import VueGoodTablePlugin from "vue-good-table";
 import Multiselect from "vue-multiselect";
+import PhotoGrid from "vue-photo-grid";
 
 //css imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -30,6 +31,7 @@ Vue.use(VueSidebarMenu);
 Vue.use(VueApexCharts);
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueFlatPickr);
+Vue.use(PhotoGrid);
 
 Vue.component("apexchart", VueApexCharts);
 Vue.component("multiselect", Multiselect);

@@ -13,10 +13,6 @@ class ImageUploadAPI extends BaseAPI {
       this.getImgOptions()
     );
   }
-
-  static testingFile(data) {
-    return API.post(this.getBaseUrl(), data, this.getExtOptions());
-  }
 }
 
 export default ImageUploadAPI;

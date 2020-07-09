@@ -52,6 +52,14 @@ const routes = [
           title: "My Trips",
           requireLogin: true
         }
+      },
+      {
+        path: "/trip-detail/:from_location/:to_location/:trip_date?",
+        component: loadView("TripDetail"),
+        meta: {
+          title: "My Trips",
+          requireLogin: true
+        }
       }
     ]
   },
