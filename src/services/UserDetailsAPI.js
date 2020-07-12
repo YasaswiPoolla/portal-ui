@@ -3,7 +3,6 @@ import BaseAPI from "./base";
 
 class UserDetailsAPI extends BaseAPI {
   static getBaseUrl() {
-    console.log(this.getHostUrl());
     return this.getHostUrl();
   }
   static getUserDetails(data) {

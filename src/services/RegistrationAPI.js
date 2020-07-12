@@ -3,7 +3,6 @@ import BaseAPI from "./base";
 
 class RegistrationAPI extends BaseAPI {
   static getBaseUrl() {
-    console.log(this.getHostUrl());
     return this.getHostUrl() + "/api/register/";
   }
   static createUser(data) {

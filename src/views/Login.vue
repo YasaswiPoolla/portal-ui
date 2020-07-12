@@ -80,7 +80,6 @@ export default {
     let component = this;
     this.getCurrentUser()
       .then(user => {
-        console.log(user);
         component.$router.push("/home");
         // loader.hide();
       })

@@ -14,9 +14,6 @@ const actions = {
       UserApi.fetchCurrent()
         .then(user => {
           commit("setCurrentUser", user.data);
-          /* eslint-disable no-console */
-          // console.log(user.data);
-          /* eslint-disable no-console */
           resolve(user.data);
         })
         .catch(error => {
@@ -104,11 +101,9 @@ const mutations = {
   },
   updateToken(state, token) {
     sessionStorage.setItem("t", token);
-    console.log(state);
   },
   removeToken(state) {
     sessionStorage.removeItem("t");
-    console.log(state);
   }
 };
 

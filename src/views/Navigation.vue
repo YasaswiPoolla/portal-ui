@@ -70,7 +70,6 @@ export default {
       let component = this;
       this.logout()
         .then(response => {
-          console.log(response);
           component.$router.push("/login");
         })
         .catch(error => {

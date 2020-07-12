@@ -3,7 +3,6 @@ import BaseAPI from "./base";
 
 class ImageUploadAPI extends BaseAPI {
   static getBaseUrl() {
-    console.log(this.getHostUrl());
     return this.getHostUrl() + "/api/file_upload/";
   }
   static getProfileImage(data) {

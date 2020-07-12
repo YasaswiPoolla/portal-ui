@@ -53,18 +53,8 @@ axiosAPI.interceptors.response.use(
       router.push("/login");
     } else if (error.response.status === 404) {
       console.log("Requested resource was not found on this server.");
-      // Vue.toasted.show("Requested resource was not found on this server.", {
-      //   theme: "toasted-primary",
-      //   position: "bottom-center",
-      //   duration: 5000
-      // });
     } else if (error.response.status === 403) {
       console.log("You don't have permissions to perform this action.");
-      // Vue.toasted.show("You don't have permissions to perform this action.", {
-      //   theme: "toasted-primary",
-      //   position: "bottom-center",
-      //   duration: 5000
-      // });
     }
     return Promise.reject(error);
   }

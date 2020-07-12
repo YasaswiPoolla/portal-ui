@@ -19,7 +19,23 @@
         :img-src="item.src"
       ></b-carousel-slide>
     </b-carousel>
-    <b-card style="margin-top:40px;padding:10px;">
+    <b-container>
+      <b-row>
+        <b-col class="user-trips-col">
+          <b-card class="user-trips-card">
+            <h3>Total Distance Covered</h3>
+            <h4>{{ total_distance }} KM</h4>
+          </b-card>
+        </b-col>
+        <b-col class="user-trips-col">
+          <b-card class="user-trips-card">
+            <h3>Total Trips</h3>
+            <h4>{{ total_trips }}</h4>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-card style="margin-top:40px;padding:10px;" title="Trips">
       <div v-if="show_week_chart">
         <apexchart
           height="300"
@@ -50,6 +66,8 @@ export default {
       ],
       slide: 0,
       sliding: null,
+      total_distance: null,
+      total_trips: null,
       show_week_chart: false,
       trip_chartOptions: {
         chart: {
@@ -131,6 +149,10 @@ export default {
       this.getWeekTripsCount();
     }
   },
+  created() {
+    this.total_distance = this.currentUser.total_distance.Sum;
+    this.total_trips = this.currentUser.total_trips.Count;
+  },
   computed: {
     ...mapState("user", ["currentUser"])
   },
@@ -152,7 +174,6 @@ export default {
       HomePageGraphsAPI.getTripsCountByWeek()
         .then(response => {
           // loader.hide();
-          console.log(response.data);
           let trip_series = component.trip_series;
           let trip_chartOptions = component.trip_chartOptions;
           for (let key in response.data) {
@@ -178,5 +199,17 @@ export default {
 }
 .content-container {
   padding: 0 !important;
+}
+.user-trips-card {
+  width: 350px;
+  height: 150px;
+}
+.user-trips-col {
+  margin-top: 20px;
+}
+h3,
+h4 {
+  text-align: center;
+  margin-top: 20px;
 }
 </style>

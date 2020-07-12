@@ -3,7 +3,6 @@ import BaseAPI from "./base";
 
 class TripImagesAPI extends BaseAPI {
   static getBaseUrl() {
-    console.log(this.getHostUrl());
     return this.getHostUrl() + "/api/images/";
   }
   static insertImages(data) {
