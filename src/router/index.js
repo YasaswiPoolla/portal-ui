@@ -33,7 +33,7 @@ const routes = [
         path: "/home",
         component: loadView("Home"),
         meta: {
-          title: "Worldline Portal",
+          title: "Portal",
           requireLogin: true
         }
       },

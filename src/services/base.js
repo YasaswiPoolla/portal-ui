@@ -7,12 +7,6 @@ class BaseAPI {
       window.location.host === "localhost:8080"
     ) {
       return "http://localhost:8000";
-    } else if (window.location.host === "192.168.153.71") {
-      return "http://192.168.153.72";
-    } else if (window.location.host === "10.10.11.71") {
-      return "http://10.10.11.72";
-    } else if (window.location.host === "192.168.1.200:8080") {
-      return "http://192.168.1.200:8000";
     }
   }
   static getBaseUrl() {

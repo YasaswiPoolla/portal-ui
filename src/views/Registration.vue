@@ -253,13 +253,4 @@ export default {
   justify-content: center;
   height: 100vh;
 }
-.worldline-background {
-  /* background-image: url(../img/reg_bg.jpg); */
-  background-color: grey;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
 </style>
